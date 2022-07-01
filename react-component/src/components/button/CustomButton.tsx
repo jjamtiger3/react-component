@@ -1,4 +1,4 @@
-import { ButtonProps } from './Button.interface';
+import { ButtonProps } from '../../interfaces/Button.interface';
 
 function CustomButton(props: ButtonProps) {
   return (
