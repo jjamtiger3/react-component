@@ -1,4 +1,14 @@
-.default {
+.custom-input-container {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+ .custom-input-container .default {
     border-radius: 3px;
     padding: 5px;
+}
+.custom-input-container span.fa.fa-close {
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
 }
