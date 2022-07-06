@@ -20,19 +20,18 @@ class CustomInput extends Component<InputProps> {
     });
   }
 
-  __applyOriginValue() {
+  __applyOriginValue(value: string) {
     const { mask } = this.props;
-    let value;
+    let _value;
     switch(mask) {
       case 'LLLL-LLLL-LLLL-LLLL':
-        const regExp: RegExp = new RegExp(/[^0-9]/);
-        value = this.state.value.replace(regExp, '');
+        _value = value.replace(/[^0-9]/g, '');
         break;
       default:
-        value = this.state.value;
+        _value = value;
         break;
     }
-    return value;
+    return _value;
   }
 
   __applyMaskedValue (originValue: string) {
@@ -40,8 +39,8 @@ class CustomInput extends Component<InputProps> {
     let value: string;
     switch(mask) {
       case 'LLLL-LLLL-LLLL-LLLL':
-        // const regExp: RegExp = new RegExp('(\\d{4})(\\d{1,4})(\\d{1,4})(\\d{1,4})');
-        let length = this.__applyOriginValue().length;
+        const appliedValue = this.__applyOriginValue(originValue);
+        let length = appliedValue.length;
         const arrMask = mask.split('-');
         const regExps: string[] = [];
         const repExps: string[] = [];
@@ -70,7 +69,7 @@ class CustomInput extends Component<InputProps> {
          * 2. 길이에 따라 정규식을 만든다 ex) 5글자면 (\\d{4})(\\d{1,1})
          * 3. 길이에 따라 변환식을 만든다 ex) 5글자면 $1-$2
          */
-        value = originValue.replace(new RegExp(regExp), repExp);
+        value = appliedValue.replace(new RegExp(regExp), repExp);
         break;
       default:
         value = originValue;
