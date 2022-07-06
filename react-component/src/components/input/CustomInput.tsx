@@ -36,39 +36,18 @@ class CustomInput extends Component<InputProps> {
 
   __applyMaskedValue (originValue: string) {
     const { mask } = this.props;
+    if (!mask) {
+      return originValue;
+    }
     let value: string;
+    const appliedValue = this.__applyOriginValue(originValue);
+    let length = appliedValue.length;
+    const { regExp, repExp } = this.__makeNumberRegExp(mask, '-', length);
     switch(mask) {
-      case 'LLLL-LLLL-LLLL-LLLL':
-        const appliedValue = this.__applyOriginValue(originValue);
-        let length = appliedValue.length;
-        const arrMask = mask.split('-');
-        const regExps: string[] = [];
-        const repExps: string[] = [];
-        arrMask.forEach((_mask: string) => {
-          let num;
-          if (length <= 0) {
-            return;
-          }
-          if (length > _mask.length || regExps.length === 0) {
-            num = '4';
-            length -= _mask.length;
-          } else {
-            num = `1,${length}`;
-            length -= _mask.length;
-          }
-          regExps.push(`(\\d{${num}})`);
-        });
-        const cnt = regExps.length;
-        for(let i = 0; i < cnt; i += 1) {
-          repExps.push(`$${(i + 1)}`);
-        }
-        const regExp = regExps.join('');
-        const repExp = repExps.join('-');
-        /**
-         * 1. originValue의 길이를 구한다
-         * 2. 길이에 따라 정규식을 만든다 ex) 5글자면 (\\d{4})(\\d{1,1})
-         * 3. 길이에 따라 변환식을 만든다 ex) 5글자면 $1-$2
-         */
+      case 'LLLLLL-LLLLLLL': // 주민번호 패턴
+        value = appliedValue.replace(new RegExp(regExp), repExp);
+        break;
+      case 'LLLL-LLLL-LLLL-LLLL': // 카드번호 패턴
         value = appliedValue.replace(new RegExp(regExp), repExp);
         break;
       default:
@@ -76,6 +55,34 @@ class CustomInput extends Component<InputProps> {
         break;
     }
     return value;
+  }
+
+  __makeNumberRegExp (mask: string, spliter: string, length: number) {
+    const arrMask = mask.split(spliter);
+    const regExps: string[] = [];
+    const repExps: string[] = [];
+    let _length: number = length;
+    arrMask.forEach((_mask: string) => {
+      let num;
+      if (_length <= 0) {
+        return;
+      }
+      if (_length > _mask.length || regExps.length === 0) {
+        num = _mask.length;
+        _length -= _mask.length;
+      } else {
+        num = `1,${_length}`;
+        _length -= _mask.length;
+      }
+      regExps.push(`(\\d{${num}})`);
+    });
+    const cnt = regExps.length;
+    for(let i = 0; i < cnt; i += 1) {
+      repExps.push(`$${(i + 1)}`);
+    }
+    const regExp = regExps.join('');
+    const repExp = repExps.join('-');
+    return { regExp, repExp }
   }
 
 

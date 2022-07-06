@@ -7,6 +7,7 @@ function App() {
   return (
     <div>
       <CustomInput classProps="default" mask='LLLL-LLLL-LLLL-LLLL'></CustomInput>
+      <CustomInput classProps="default" mask='LLLLLL-LLLLLLL'></CustomInput>
     </div>
   );
 }
