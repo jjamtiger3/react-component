@@ -65,6 +65,7 @@ class CustomInput extends Component<InputProps> {
          * 3. 치환전 값을 originValue에 저장(*가 있건 없건 originValue에 저장)
          * 4. 치환된 값을 value에 저장
          * 5. __applyOriginValue호출시 originValue에서 가져옴
+         * 6. 추후 다른 패턴에서 originValue사용하도록 수정
          */
         value = appliedValue.replace(new RegExp(regExp), repExp);
         const { chars } = this.state;
