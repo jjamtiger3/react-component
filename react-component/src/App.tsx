@@ -6,8 +6,14 @@ import CustomInput from './components/input/CustomInput';
 function App() {
   return (
     <div>
-      <CustomInput classProps="default" mask='LLLL-LLLL-LLLL-LLLL'></CustomInput>
-      <CustomInput classProps="default" mask='LLLLLL-LLLLLLL'></CustomInput>
+      <div>
+        <label>카드번호: </label>
+        <CustomInput classProps="default" mask='LLLL-LLLL-LLLL-LLLL'></CustomInput>
+      </div>
+      <div>
+        <label>주민등록번호: </label>
+        <CustomInput classProps="default" mask='LLLLLL-LLLLLLL'></CustomInput>
+      </div>
     </div>
   );
 }

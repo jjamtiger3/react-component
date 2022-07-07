@@ -12,3 +12,6 @@
     right: 5px;
     cursor: pointer;
 }
+.custom-input-container span.fa.fa-close.hide {
+    display: none;
+}

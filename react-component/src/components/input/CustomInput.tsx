@@ -20,6 +20,12 @@ class CustomInput extends Component<InputProps> {
     });
   }
 
+  clear = (e: any) => {
+    this.setState({
+      value: ''
+    });
+  }
+
   __applyOriginValue(value: string) {
     const { mask } = this.props;
     let _value;
@@ -49,6 +55,12 @@ class CustomInput extends Component<InputProps> {
         break;
       case 'LLLL-LLLL-LLLL-LLLL': // 카드번호 패턴
         value = appliedValue.replace(new RegExp(regExp), repExp);
+        break;
+      case 'LLLLLL-L*******': // TODO 주민번호 마스킹 패턴
+        value = originValue;
+        break;
+      case 'LLLL-****-****-LLLL': // TODO 카드번호 마스킹 패턴
+        value = originValue;
         break;
       default:
         value = originValue;
@@ -93,7 +105,7 @@ class CustomInput extends Component<InputProps> {
   render () {
     return <div className="custom-input-container">
         <input className={this.props.classProps} maxLength={this.props.mask?.length} value={this.state.value} onChange={this.handleChange}></input>
-        <span className="fa fa-close"></span>
+        <span className={`fa fa-close ${this.state.value ? '' : 'hide'}`} onClick={this.clear}></span>
       </div>
   }
 }
