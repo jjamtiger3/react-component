@@ -14,6 +14,10 @@ function App() {
         <label>주민등록번호: </label>
         <CustomInput classProps="default" mask='LLLLLL-LLLLLLL'></CustomInput>
       </div>
+      <div>
+        <label>주민등록번호: </label>
+        <CustomInput classProps="default" mask='LLLLLL-L******'></CustomInput>
+      </div>
     </div>
   );
 }
