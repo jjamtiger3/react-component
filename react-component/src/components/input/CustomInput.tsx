@@ -7,6 +7,7 @@ import { CharInterface } from './CharInterface';
 class CustomInput extends Component<InputProps> {
   state = {
     value: '',
+    originValue: '',
     chars: []
   }
   // eslint-disable-next-line @typescript-eslint/no-useless-constructor
@@ -22,9 +23,18 @@ class CustomInput extends Component<InputProps> {
     });
   }
 
+  getValue() {
+    return this.state.value;
+  }
+
+  getOriginValue() {
+    return this.state.originValue;
+  }
+
   clear = (e: any) => {
     this.setState({
-      value: ''
+      value: '',
+      originValue: ''
     });
   }
 
